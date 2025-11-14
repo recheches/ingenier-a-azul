@@ -1,10 +1,13 @@
-import { MessageCircle, Mail, Phone, MapPin } from "lucide-react";
+import { MessageCircle, Mail, Phone, MapPin, TrendingUp, Users, Award } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import logo from "@/assets/logo.png";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useParallax } from "@/hooks/useParallax";
+import { useCounter } from "@/hooks/useCounter";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +16,15 @@ const Index = () => {
     telefono: "",
     mensaje: "",
   });
+
+  const scrollY = useParallax();
+  const servicesAnimation = useScrollAnimation(0.2);
+  const statsAnimation = useScrollAnimation(0.3);
+  const contactAnimation = useScrollAnimation(0.2);
+
+  const yearsCount = useCounter(15, 2000, statsAnimation.isVisible);
+  const projectsCount = useCounter(250, 2000, statsAnimation.isVisible);
+  const clientsCount = useCounter(150, 2000, statsAnimation.isVisible);
 
   const handleWhatsAppClick = () => {
     window.open("https://wa.me/56993354642", "_blank");
@@ -60,27 +72,84 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section id="inicio" className="min-h-screen flex items-center justify-center px-6 pt-24">
-        <div className="text-center max-w-5xl">
+      {/* Hero Section with Parallax */}
+      <section id="inicio" className="min-h-screen flex items-center justify-center px-6 pt-24 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            transform: `translateY(${scrollY * 0.5}px)`,
+            background: `radial-gradient(circle at 50% ${50 + scrollY * 0.1}%, hsl(var(--primary) / 0.15), transparent 70%)`
+          }}
+        />
+        <div className="text-center max-w-5xl relative z-10">
           <div className="mb-6 animate-fade-in">
             <div className="w-20 h-1 bg-primary mx-auto mb-8"></div>
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight mb-6 animate-fade-in [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]">
+          <h1 
+            className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight mb-6 animate-fade-in [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]"
+            style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+          >
             SERVICIOS DE
             <br />
             OBRAS CIVILES
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in [animation-delay:400ms] opacity-0 [animation-fill-mode:forwards]">
+          <p 
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in [animation-delay:400ms] opacity-0 [animation-fill-mode:forwards]"
+            style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+          >
             Soluciones profesionales de ingeniería con estándares de calidad superior
           </p>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="servicios" className="py-20 px-6 border-t border-primary/30">
+      {/* Statistics Section */}
+      <section 
+        ref={statsAnimation.ref}
+        className="py-20 px-6 border-t border-primary/30 bg-secondary/30"
+      >
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center animate-fade-in">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className={`text-center transform transition-all duration-1000 ${statsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <div className="flex items-center justify-center mb-4">
+                <TrendingUp className="w-12 h-12 text-primary" />
+              </div>
+              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+                +{yearsCount}
+              </div>
+              <div className="text-muted-foreground font-medium">Años de Experiencia</div>
+            </div>
+            
+            <div className={`text-center transform transition-all duration-1000 delay-200 ${statsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <div className="flex items-center justify-center mb-4">
+                <Award className="w-12 h-12 text-primary" />
+              </div>
+              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+                +{projectsCount}
+              </div>
+              <div className="text-muted-foreground font-medium">Proyectos Completados</div>
+            </div>
+            
+            <div className={`text-center transform transition-all duration-1000 delay-500 ${statsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <div className="flex items-center justify-center mb-4">
+                <Users className="w-12 h-12 text-primary" />
+              </div>
+              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+                +{clientsCount}
+              </div>
+              <div className="text-muted-foreground font-medium">Clientes Satisfechos</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section 
+        ref={servicesAnimation.ref}
+        id="servicios" 
+        className="py-20 px-6 border-t border-primary/30"
+      >
+        <div className="container mx-auto max-w-6xl">
+          <h2 className={`text-3xl md:text-4xl font-bold text-foreground mb-12 text-center transition-all duration-1000 ${servicesAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             SERVICIOS
           </h2>
           
@@ -113,8 +182,12 @@ const Index = () => {
             ].map((service, index) => (
               <div
                 key={index}
-                className="bg-secondary border border-primary/20 p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 group animate-fade-in opacity-0 [animation-fill-mode:forwards] hover:-translate-y-1"
-                style={{ animationDelay: `${index * 100 + 600}ms` }}
+                className={`bg-secondary border border-primary/20 p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/20 transition-all duration-500 group hover:-translate-y-1 ${
+                  servicesAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ 
+                  transitionDelay: servicesAnimation.isVisible ? `${index * 100}ms` : '0ms' 
+                }}
               >
                 <div className="w-12 h-1 bg-primary mb-4 group-hover:w-16 transition-all duration-300"></div>
                 <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
@@ -130,15 +203,19 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contacto" className="py-20 px-6 border-t border-primary">
+      <section 
+        ref={contactAnimation.ref}
+        id="contacto" 
+        className="py-20 px-6 border-t border-primary"
+      >
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center animate-fade-in">
+          <h2 className={`text-3xl md:text-4xl font-bold text-foreground mb-12 text-center transition-all duration-1000 ${contactAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             CONTACTO
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Info */}
-            <div className="space-y-8 animate-fade-in [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]">
+            <div className={`space-y-8 transition-all duration-1000 delay-200 ${contactAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <div>
                 <h3 className="text-xl font-bold text-foreground mb-6">
                   Información de Contacto
@@ -178,7 +255,7 @@ const Index = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-secondary border border-primary/20 p-8 animate-fade-in [animation-delay:400ms] opacity-0 [animation-fill-mode:forwards]">
+            <div className={`bg-secondary border border-primary/20 p-8 transition-all duration-1000 delay-500 ${contactAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <h3 className="text-xl font-bold text-foreground mb-6">
                 Envíanos un Mensaje
               </h3>
