@@ -86,7 +86,7 @@ const Index = () => {
             <div className="w-20 h-1 bg-primary mx-auto mb-8"></div>
           </div>
           <h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight mb-6 animate-fade-in [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight mb-6 animate-fade-in [animation-delay:200ms]"
             style={{ transform: `translateY(${scrollY * 0.2}px)` }}
           >
             SERVICIOS DE
@@ -94,7 +94,7 @@ const Index = () => {
             OBRAS CIVILES
           </h1>
           <p 
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in [animation-delay:400ms] opacity-0 [animation-fill-mode:forwards]"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in [animation-delay:400ms]"
             style={{ transform: `translateY(${scrollY * 0.15}px)` }}
           >
             Soluciones profesionales de ingeniería con estándares de calidad superior
