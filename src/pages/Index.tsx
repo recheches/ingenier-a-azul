@@ -63,15 +63,15 @@ const Index = () => {
       {/* Hero Section */}
       <section id="inicio" className="min-h-screen flex items-center justify-center px-6 pt-24">
         <div className="text-center max-w-5xl">
-          <div className="mb-6">
+          <div className="mb-6 animate-fade-in">
             <div className="w-20 h-1 bg-primary mx-auto mb-8"></div>
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight mb-6">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight mb-6 animate-fade-in [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]">
             SERVICIOS DE
             <br />
             OBRAS CIVILES
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in [animation-delay:400ms] opacity-0 [animation-fill-mode:forwards]">
             Soluciones profesionales de ingeniería con estándares de calidad superior
           </p>
         </div>
@@ -80,7 +80,7 @@ const Index = () => {
       {/* Services Section */}
       <section id="servicios" className="py-20 px-6 border-t border-primary/30">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center animate-fade-in">
             SERVICIOS
           </h2>
           
@@ -113,10 +113,11 @@ const Index = () => {
             ].map((service, index) => (
               <div
                 key={index}
-                className="bg-secondary border border-primary/20 p-6 hover:border-primary transition-colors group"
+                className="bg-secondary border border-primary/20 p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 group animate-fade-in opacity-0 [animation-fill-mode:forwards] hover:-translate-y-1"
+                style={{ animationDelay: `${index * 100 + 600}ms` }}
               >
-                <div className="w-12 h-1 bg-primary mb-4 group-hover:w-16 transition-all"></div>
-                <h3 className="text-xl font-bold text-foreground mb-3">
+                <div className="w-12 h-1 bg-primary mb-4 group-hover:w-16 transition-all duration-300"></div>
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -131,13 +132,13 @@ const Index = () => {
       {/* Contact Section */}
       <section id="contacto" className="py-20 px-6 border-t border-primary">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center animate-fade-in">
             CONTACTO
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Info */}
-            <div className="space-y-8">
+            <div className="space-y-8 animate-fade-in [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]">
               <div>
                 <h3 className="text-xl font-bold text-foreground mb-6">
                   Información de Contacto
@@ -177,7 +178,7 @@ const Index = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-secondary border border-primary/20 p-8">
+            <div className="bg-secondary border border-primary/20 p-8 animate-fade-in [animation-delay:400ms] opacity-0 [animation-fill-mode:forwards]">
               <h3 className="text-xl font-bold text-foreground mb-6">
                 Envíanos un Mensaje
               </h3>
